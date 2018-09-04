@@ -1,35 +1,28 @@
 # NLP_Examples
 Code templates for some basic natural language processing tasks.
 
-```Do something useful!```
+*Do something useful!*
 
-## Dataset resources
-See [Here](./DataSet/README.md)
-
-
-## Code templates
+## Natural Language Generation
+- [seq2seq]()
 
 
-### Natural Language Generation
-1. [seq2seq]()
+## Natural Language Understanding
 
 
-### Natural Language Understanding
+## Reinforcement Learning
 
 
-### Reinforcement Learning
+## Sentiment Analysis
 
 
-### Sentiment Analysis
+## Information Retrieval
 
 
-### Information Retrieval
+## Generative Adversarial Network
 
 
-### Generative Adversarial Network
-
-
-### Variational Auto-Encoder
+## Variational Auto-Encoder
 
 
 
