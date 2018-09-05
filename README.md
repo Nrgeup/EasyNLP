@@ -1,10 +1,13 @@
 # NLP_Examples
 Code templates for some basic natural language processing tasks.
 
-*Do something useful!*
+_**The faintest ink is more powerful than the strongest memory**_
+
+- [Basic_Framework](./Basic_framework)
 
 ## Natural Language Generation
-- [seq2seq]()
+- [rnn_language_model](./NLG/rnn_language_model)
+- [seq2seq](./NLG/seq2seq)
 
 
 ## Natural Language Understanding
