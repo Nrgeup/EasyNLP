@@ -14,7 +14,7 @@ from torch import optim
 from torch.autograd import Variable
 import torch.nn.functional as F
 import matplotlib
-matplotlib.use('Agg') 
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 import numpy as np
@@ -92,11 +92,12 @@ def train(input_tensor, target_tensor, encoder, decoder, encoder_optimizer, deco
     encoder_optimizer.zero_grad()
     decoder_optimizer.zero_grad()
 
-    # seq_length * batch_size
     input_length = input_tensor.size(0)
     target_length = target_tensor.size(0)
 
     encoder_outputs = torch.zeros(max_length, encoder.hidden_size, device=args.device)
+
+
 
     loss = 0
 
@@ -150,6 +151,7 @@ def train(input_tensor, target_tensor, encoder, decoder, encoder_optimizer, deco
 # Then we call ``train`` many times and occasionally print the progress (%
 # of examples, time so far, estimated time) and average loss.
 #
+
 def trainIters(encoder, decoder, n_iters, print_every=1000, plot_every=100, learning_rate=0.01):
     start = time.time()
     plot_losses = []

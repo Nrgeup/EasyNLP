@@ -50,6 +50,8 @@ ntokens = len(corpus.dictionary)
 hidden = model.init_hidden(1)
 input = torch.randint(ntokens, (1, 1), dtype=torch.long).to(device)
 
+print("============111111", input.size())
+
 with open(args.outf, 'w') as outf:
     with torch.no_grad():  # no tracking history
         for i in range(args.words):
