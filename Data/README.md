@@ -9,12 +9,13 @@ An older, relatively small dataset for binary sentiment classification features 
 
 "用于二元情感分类的较旧的，相对较小的电影评论数据集。"
 
-    - statistics
+- statistics
+
 | Size | #Num | Size |
 | ------ | ------ | ------ |
 | xxx | xx | xxx |
     
-    - Examples
+- Examples
     
     
 
@@ -77,12 +78,13 @@ Question answering dataset featuring natural, multi-hop questions, with strong s
  
  "带文本标注的图片数据集"
 
-    - statistics (2017-version)
+- statistics (2017-version)
+
 | Train | Val | Test |
 | ------ | ------ | ------ |
 | 118K/18GB | 5K/1GB | 41K/6GB |
     
-    - Examples
+- Examples
 
  
 ### [Labelme]()
@@ -118,8 +120,13 @@ Scene understanding with many ancillary tasks (room layout estimation, saliency 
 
 ## Embeddings
 
+### [word2vec-GoogleNews-vectors](https://code.google.com/archive/p/word2vec/)
 
+A Google News Corpus (3 billion running words) word vector model (3 million 300-dimensional English word vectors) pre-trained with the word2vec tool.
 
+"使用word2vec工具预先训练的Google新闻语料库300维英语单词向量"
+
+Mirror site: [GoogleNews-vectors-negative300.bin.gz](https://drive.google.com/file/d/0B7XkCwpI5KDYNlNUTTlSS21pQmM/edit?usp=sharing)
 ## Others
 
 
@@ -129,7 +136,18 @@ A collection of words from Google books.
 
 "统计自Google Books的词集合。"
 
+### [CA8-Chinese Word Vectors](https://github.com/Embedding/Chinese-Word-Vectors)
 
+This project provides 100+ Chinese Word Vectors (embeddings) trained with different representations (dense and sparse), context features (word, ngram, character, and more), and corpora.
+
+"该项目提供了100多个使用不同表示（密集和稀疏），上下文特征（单词，ngram，字符等）和语料库训练的中文单词向量（嵌入）。"
+
+
+### [Tencent AI Lab Embedding Corpus for Chinese Words and Phrases](https://ai.tencent.com/ailab/nlp/embedding.html)
+
+This corpus provides 200-dimension vector representations, a.k.a. embeddings, for over 8 million Chinese words and phrases, which are pre-trained on large-scale high-quality data. 
+
+"该语料库为超过800万个中文单词和短语提供了200维词向量表示"
 
 ---
 Thanks to the following articles!
