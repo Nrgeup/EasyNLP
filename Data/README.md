@@ -127,14 +127,8 @@ A Google News Corpus (3 billion running words) word vector model (3 million 300-
 "使用word2vec工具预先训练的Google新闻语料库300维英语单词向量"
 
 Mirror site: [GoogleNews-vectors-negative300.bin.gz](https://drive.google.com/file/d/0B7XkCwpI5KDYNlNUTTlSS21pQmM/edit?usp=sharing)
-## Others
 
 
-### [Google Books Ngrams](https://aws.amazon.com/datasets/google-books-ngrams/)
-
-A collection of words from Google books.
-
-"统计自Google Books的词集合。"
 
 ### [CA8-Chinese Word Vectors](https://github.com/Embedding/Chinese-Word-Vectors)
 
@@ -149,7 +143,39 @@ This corpus provides 200-dimension vector representations, a.k.a. embeddings, fo
 
 "该语料库为超过800万个中文单词和短语提供了200维词向量表示"
 
+
+## Others
+
+
+### [Google Books Ngrams](https://aws.amazon.com/datasets/google-books-ngrams/)
+
+A collection of words from Google books.
+
+"统计自Google Books的词集合。"
+
+
+### [Rumors in Chinese social media](https://github.com/thunlp/Chinese_Rumor_Dataset)
+
+"Chinese rumor data, which was crawled from Sina Weibo's false information reporting platform, with a total of 31,669 as of June 13, 2017."
+
+“中文谣言数据，该数据为从新浪微博不实信息举报平台抓取的中文谣言数据，共包含截止至2017年6月13日的31669条谣言。”
+
+- Examples(Each instance contains the following information.)
+
+    - rumorCode: 该条谣言的唯一编码，可以通过该编码直接访问该谣言举报页面。
+    - title: 该条谣言被举报的标题内容
+    - informerName: 举报者微博名称
+    - informerUrl: 举报者微博链接
+    - rumormongerName: 发布谣言者的微博名称
+    - rumormongerUr: 发布谣言者的微博链接
+    - rumorText: 谣言内容
+    - visitTimes: 该谣言被访问次数
+    - result: 该谣言审查结果
+    - publishTime: 该谣言被举报时间
+
 ---
+## References
+
 Thanks to the following articles!
 
 [1][The 50 Best Public Datasets for Machine Learning](https://medium.com/datadriveninvestor/the-50-best-public-datasets-for-machine-learning-d80e9f030279)
