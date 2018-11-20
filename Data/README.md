@@ -179,3 +179,9 @@ A collection of words from Google books.
 Thanks to the following articles!
 
 [1][The 50 Best Public Datasets for Machine Learning](https://medium.com/datadriveninvestor/the-50-best-public-datasets-for-machine-learning-d80e9f030279)
+
+[2][Open data for Deep learning by deeplearning4j](https://deeplearning4j.org/cn/opendata)
+
+[3][NLP Datasets by karthikncode](https://github.com/karthikncode/nlp-datasets)
+
+[4][fast.ai datasets](https://course.fast.ai/datasets)

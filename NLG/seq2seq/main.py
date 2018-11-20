@@ -14,7 +14,6 @@ from torch import optim
 from torch.autograd import Variable
 import torch.nn.functional as F
 import matplotlib
-matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 import numpy as np
@@ -44,7 +43,7 @@ parser.add_argument('--MAX_LENGTH', type=int, default=10, help='end of sentence'
 args = parser.parse_args()
 # check gpu
 if torch.cuda.is_available():
-    args.device =  "cuda"
+    args.device = "cuda"
     print("Info: You are now using GPU mode:", args.device)
 else:
     print("Warning: You do not have a CUDA device, so you now running with CPU!")

@@ -3,34 +3,44 @@ Pytorch code templates for some basic natural language processing tasks.
 
     Experience is the mother of wisdom!
 
+---
+
 - [NLP-Progress](https://nlpprogress.com/)
-- [Basic_Framework](./Basic_framework)
 - [Collected Public Datasets](./Data)
 - [NLP Conference Deadlines](https://aideadlin.es/?sub=NLP,ML,CV,DM)
+- [Basic_Framework](./Basic_framework)
 
+---
 ## Theoretical Research
 
 - Reinforcement Learning
 - Generative Adversarial Network
+    - [ ] SeqGAN
+    - [ ] TextGAN
+    - [ ] MaskGAN
+    - [ ] SentiGAN
 - Variational Auto-Encoder
-
 
 ## Natural Language Generation
 - RNN based Model
-    - [rnn_language_model](./NLG/rnn_language_model)
-    - [seq2seq model](./NLG/seq2seq)
-
+    - [x] [rnn_language_model](./NLG/rnn_language_model)
+    - [x] [seq2seq model](./NLG/seq2seq)
+    
+    
 - CNN Based Model
 
 - Transformer Based Model
-
+    - [x] [transformer](./NLG/transformer)
+    - [ ] bert
+    
 ## Natural Language Understanding
 
 - Sentiment Analysis
-    - [Basic LSTM Classifier](./NLU/SA/LSTM_Classifier.py)
+    - [x] [Basic LSTM Classifier](./NLU/SA/LSTM_Classifier.py)
     
 ## Information Retrieval
-    
+- Relation Extraction
+
 
 ## Cross Modal
 
@@ -38,7 +48,22 @@ Pytorch code templates for some basic natural language processing tasks.
 
 
 ## Tool Scripts
-  - [BLEU](./Tools/bleu.py)
-  - [Sentence similarity](./Tools/similarity.py)
-  - [English text preprocessing](./Tools/text_process.py)
+ - Metrics
+  - [x] [BLEU](./Tools/bleu.py)
+ - Processing scripts
+  - [x] [Sentence similarity](./Tools/similarity.py)
+  - [x] [English text pre-processing](./Tools/text_process.py)
+ - Implementation skills
+  - [x] [Label Smoothing](./Tools/label_smoothing.py)
+  - [ ] [Attention visualization](./Tools/attention_visualization.py)
+  - [ ] Beam search
+  - [ ] Multi-GPU training 
 
+ 
+
+  
+  
+  
+  
+ 
+  
