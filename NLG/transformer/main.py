@@ -106,7 +106,7 @@ def synthetic_data():
     print("synthetic_data task")
     # Train the simple copy task.
     V = 11
-    criterion = model_help.LabelSmoothing(size=V, padding_idx=0, smoothing=0.0)
+    criterion = model_help.LabelSmoothing(size=V, padding_idx=0, smoothing=0.1)
     criterion.cuda()
     model = model_help.make_model(V, V, N=2)
     model.cuda()
