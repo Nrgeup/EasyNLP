@@ -20,6 +20,8 @@ Pytorch code templates for some basic natural language processing tasks.
     - [ ] MaskGAN
     - [ ] SentiGAN
 - Variational Auto-Encoder
+    - [ ] Auto-Encoder
+    
 
 ## Natural Language Generation
 - RNN based Model
@@ -50,17 +52,19 @@ Pytorch code templates for some basic natural language processing tasks.
 
 ## Tool Scripts
  - Metrics
-  - [x] [BLEU](./Tools/bleu.py)
+      - [x] [BLEU](./Tools/bleu.py)
  - Processing scripts
-  - [x] [Sentence similarity](./Tools/similarity.py)
-  - [x] [English text pre-processing](./Tools/text_process.py)
-  - [x] [Google translate script](././Tools/google_translate.py)
+      - [x] [Sentence similarity](./Tools/similarity.py)
+      - [x] [English text pre-processing](./Tools/text_process.py)
+      - [x] [Google translate script](././Tools/google_translate.py)
  - Implementation skills
-  - [x] [Label Smoothing](./Tools/label_smoothing.py)
-  - [ ] [Attention visualization](./Tools/attention_visualization.py)
-  - [ ] Beam search
-  - [ ] Multi-GPU training 
-  - [ ] 
+      - [x] [Label Smoothing](./Tools/label_smoothing.py)
+      - [ ] [Attention visualization](./Tools/attention_visualization.py)
+      - [ ] Beam search
+      - [ ] Multi-GPU training 
+
+
+
  
  
 
