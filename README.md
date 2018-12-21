@@ -27,7 +27,9 @@ Pytorch code templates for some basic natural language processing tasks.
 - RNN based Model
     - [x] [rnn_language_model](./NLG/rnn_language_model)
     - [x] [seq2seq model](./NLG/seq2seq)
+        - [x] [batch luong attention rnn](./NLG/seq2seq/batch_attention_rnn.py)
     - [x] [Pointer network](./NLG/PointerNet)
+    
     
     
 - CNN Based Model
