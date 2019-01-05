@@ -8,8 +8,9 @@ Pytorch code templates for some basic natural language processing tasks.
 - [NLP-Progress](https://nlpprogress.com/)
 - [Collected Public Datasets](./Data)
 - [NLP Conference Deadlines](https://aideadlin.es/?sub=NLP,ML,CV,DM)
-- [Basic_Framework](./Basic_framework)
+- [Best Paper Awards in CS](https://jeffhuang.com/best_paper_awards.html)
 
+- [Basic_Framework](./Basic_framework)
 ---
 ## Theoretical Research
 
