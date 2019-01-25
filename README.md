@@ -15,6 +15,7 @@ Pytorch code templates for some basic natural language processing tasks.
 ## Theoretical Research
 
 - Reinforcement Learning
+    
 - Generative Adversarial Network
     - [ ] SeqGAN
     - [ ] TextGAN
@@ -57,6 +58,7 @@ Pytorch code templates for some basic natural language processing tasks.
 ## Tool Scripts
  - Metrics
       - [x] [BLEU](./Tools/bleu.py)
+      - [x] [Self-BLEU](./Tools/self-bleu.py)
  - Processing scripts
       - [x] [Sentence similarity](./Tools/similarity.py)
       - [x] [English text pre-processing](./Tools/text_process.py)
