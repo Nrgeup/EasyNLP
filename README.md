@@ -23,6 +23,7 @@ Pytorch code templates for some basic natural language processing tasks.
     - [ ] SentiGAN
 - Variational Auto-Encoder
     - [ ] Auto-Encoder
+    - [x] [VAE](./NLG/AE/vae.py)
     
 
 ## Natural Language Generation
@@ -48,7 +49,7 @@ Pytorch code templates for some basic natural language processing tasks.
     
 ## Information Retrieval
 - Relation Extraction
-
+    
 
 ## Cross Modal
 
@@ -64,6 +65,7 @@ Pytorch code templates for some basic natural language processing tasks.
       - [x] [English text pre-processing](./Tools/text_process.py)
       - [x] [Google translate script](././Tools/google_translate.py)
  - Implementation skills
+      - [x] [word_net](./Tools/wordnet/)
       - [x] [Label Smoothing](./Tools/label_smoothing.py)
       - [ ] [Attention visualization](./Tools/attention_visualization.py)
       - [ ] Multi-GPU training 
