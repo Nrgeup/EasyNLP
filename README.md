@@ -18,7 +18,7 @@ Pytorch code templates for some basic natural language processing tasks.
     
 - Generative Adversarial Network
     - [PyTorch-GANs](https://github.com/eriklindernoren/PyTorch-GAN)
-    - [x] [FSGM(Fast Gradient Sign Method)](./GAN/fsgm.py)
+    - [x] [FGSM(Fast Gradient Sign Method)](./GAN/fgsm.py)
 - Variational Auto-Encoder
     - [x] [Auto-Encoder](./NLG/AE/ae/) 
     - [x] [VAE](./NLG/AE/vae.py)
