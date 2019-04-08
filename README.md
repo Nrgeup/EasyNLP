@@ -17,12 +17,9 @@ Pytorch code templates for some basic natural language processing tasks.
 - Reinforcement Learning
     
 - Generative Adversarial Network
-    - [ ] SeqGAN
-    - [ ] TextGAN
-    - [ ] MaskGAN
-    - [ ] SentiGAN
+
 - Variational Auto-Encoder
-    - [ ] Auto-Encoder
+    - [x] [Auto-Encoder](./NLG/AE/ae/) 
     - [x] [VAE](./NLG/AE/vae.py)
     
 
