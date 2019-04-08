@@ -17,7 +17,8 @@ Pytorch code templates for some basic natural language processing tasks.
 - Reinforcement Learning
     
 - Generative Adversarial Network
-
+    - [PyTorch-GANs](https://github.com/eriklindernoren/PyTorch-GAN)
+    - [x] [FSGM(Fast Gradient Sign Method)](./GAN/fsgm.py)
 - Variational Auto-Encoder
     - [x] [Auto-Encoder](./NLG/AE/ae/) 
     - [x] [VAE](./NLG/AE/vae.py)
@@ -66,6 +67,8 @@ Pytorch code templates for some basic natural language processing tasks.
       - [x] [Label Smoothing](./Tools/label_smoothing.py)
       - [ ] [Attention visualization](./Tools/attention_visualization.py)
       - [ ] Multi-GPU training 
+ - Draw
+ 
 
 
 
