@@ -8,188 +8,218 @@ import math
 import os
 import torch
 import torch.nn as nn
-import torch.onnx
 from torch import optim
 import numpy
 import matplotlib
 from matplotlib import pyplot as plt
-from torch.autograd import Variable
-
 
 # Import your model files.
-import data as data_help
-import model as model_help
+from model import make_model, Classifier, NoamOpt, LabelSmoothing
+from data import prepare_data, non_pair_data_loader, get_cuda, pad_batch_seuqences, id2text_sentence
 
+os.environ['CUDA_LAUNCH_BLOCKING'] = "1"
+# os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
-
-#######################################################################################
-#  Hyper-parameters
+######################################################################################
+#  Environmental parameters
 ######################################################################################
 parser = argparse.ArgumentParser(description="Here is your model discription.")
-# Add your arguments here.
-# Example:
-# parser.add_argument('--data', type=str, default='../../Data/wikitext-2',
-#                     help='location of the data corpus')
+parser.add_argument('--id_pad', type=int, default=0, help='')
+parser.add_argument('--id_unk', type=int, default=1, help='')
+parser.add_argument('--id_bos', type=int, default=2, help='')
+parser.add_argument('--id_eos', type=int, default=3, help='')
 
+######################################################################################
+#  File parameters
+######################################################################################
+parser.add_argument('--task', type=str, default='yelp', help='Specify datasets.')
+parser.add_argument('--word_to_id_file', type=str, default='', help='')
+parser.add_argument('--data_path', type=str, default='', help='')
 
-parser.add_argument('--device', type=str, default='cpu', help='')
+######################################################################################
+#  Model parameters
+######################################################################################
+parser.add_argument('--word_dict_max_num', type=int, default=5, help='')
+parser.add_argument('--batch_size', type=int, default=128, help='')
+parser.add_argument('--max_sequence_length', type=int, default=60)
+parser.add_argument('--num_layers_AE', type=int, default=1)
+parser.add_argument('--embedding_size', type=int, default=300)
+parser.add_argument('--hidden_size', type=int, default=256)
+parser.add_argument('--rnn_type', type=str, default='gru')
+parser.add_argument('--latent_size', type=int, default=64)
+parser.add_argument('--word_dropout', type=float, default=1.0)
+parser.add_argument('--embedding_dropout', type=float, default=0.5)
+parser.add_argument('--learning_rate', type=float, default=0.001)
+parser.add_argument('--label_size', type=int, default=1)
+
 
 args = parser.parse_args()
+args.if_load_from_checkpoint = False
+# args.if_load_from_checkpoint = True
+# args.checkpoint_name = "1554798102"
+######################################################################################
+#  End of hyper parameters
+######################################################################################
 
 
-# set gpu
-if torch.cuda.is_available():
-    args.device = "cuda"
-    print("Info: You are now using GPU mode:", args.device)
-else:
-    print("Warning: You do not have a CUDA device, so you now running with CPU!")
-os.environ["CUDA_VISIBLE_DEVICES"] = "1"
-
-# Write your main code here.
-
-global max_src_in_batch, max_tgt_in_batch
+def add_log(ss):
+    now_time = time.strftime("[%Y-%m-%d %H:%M:%S]: ", time.localtime())
+    print(now_time + ss)
+    with open(args.log_file, 'a') as f:
+        f.write(now_time + str(ss) + '\n')
+    return
 
 
-def run_epoch(data_iter, model, loss_compute):
-    """Standard Training and Logging Function"""
-    start = time.time()
-    total_tokens = 0
-    total_loss = 0
-    tokens = 0
-    for i, batch in enumerate(data_iter):
-        out = model.forward(batch.src.to(args.device), batch.trg.to(args.device),
-                            batch.src_mask.to(args.device), batch.trg_mask.to(args.device))
-        loss = loss_compute(out, batch.trg_y.to(args.device), batch.ntokens.float())
-        total_loss += loss
-        total_tokens += batch.ntokens
-        tokens += batch.ntokens
-        if i % 50 == 1:
-            elapsed = time.time() - start
-            print("Epoch Step: %d Loss: %f Tokens per Sec: %f" %
-                    (i, loss.cpu().numpy() / batch.ntokens.numpy(), tokens.numpy() / elapsed))
-            start = time.time()
-            tokens = 0
-    return total_loss.cpu() / total_tokens.cpu().float()
+def preparation():
+    # set model save path
+    if args.if_load_from_checkpoint:
+        timestamp = args.checkpoint_name
+    else:
+        timestamp = str(int(time.time()))
+        print("create new model save path: %s" % timestamp)
+    args.current_save_path = 'save/%s/' % timestamp
+    args.log_file = args.current_save_path + time.strftime("log_%Y_%m_%d_%H_%M_%S.txt", time.localtime())
+    print("create log file at path: %s" % args.log_file)
+
+    if os.path.exists(args.current_save_path):
+        add_log("Load checkpoint model from Path: %s" % args.current_save_path)
+    else:
+        os.makedirs(args.current_save_path)
+        add_log("Path: %s is created" % args.current_save_path)
+
+    # set task type
+    if args.task == 'yelp':
+        args.data_path = '../../data/yelp/processed_files/'
+    elif args.task == 'amazon':
+        args.data_path = '../../data/amazon/processed_files/'
+    elif args.task == 'imagecaption':
+        pass
+    else:
+        raise TypeError('Wrong task type!')
+
+    # prepare data
+    args.id_to_word, args.vocab_size, \
+    args.train_file_list, args.train_label_list = prepare_data(
+        data_path=args.data_path, max_num=args.word_dict_max_num, task_type=args.task
+    )
+    return
 
 
-def batch_size_fn(new, count, sofar):
-    """Keep augmenting batch and calculate total number of tokens + padding."""
-    global max_src_in_batch, max_tgt_in_batch
-    if count == 1:
-        max_src_in_batch = 0
-        max_tgt_in_batch = 0
-    max_src_in_batch = max(max_src_in_batch,  len(new.src))
-    max_tgt_in_batch = max(max_tgt_in_batch,  len(new.trg) + 2)
-    src_elements = count * max_src_in_batch
-    tgt_elements = count * max_tgt_in_batch
-    return max(src_elements, tgt_elements)
+def train_iters(ae_model, dis_model):
+    train_data_loader = non_pair_data_loader(
+        batch_size=args.batch_size, id_bos=args.id_bos,
+        id_eos=args.id_eos, id_unk=args.id_unk,
+        max_sequence_length=args.max_sequence_length, vocab_size=args.vocab_size
+    )
+    train_data_loader.create_batches(args.train_file_list, args.train_label_list, if_shuffle=True)
+    add_log("Start train process.")
+    ae_model.train()
+    dis_model.train()
+
+    # ae_optimizer = torch.optim.Adam(ae_model.parameters(), lr=args.learning_rate)
+
+    ae_optimizer = NoamOpt(ae_model.src_embed[0].d_model, 1, 2000,
+                           torch.optim.Adam(ae_model.parameters(), lr=0, betas=(0.9, 0.98), eps=1e-9))
+    dis_optimizer = torch.optim.Adam(dis_model.parameters(), lr=0.01)
 
 
-def greedy_decode(model, src, src_mask, max_len, start_symbol):
-    memory = model.encode(src, src_mask)
-    ys = torch.ones(1, 1).fill_(start_symbol).type_as(src.data)
-    for i in range(max_len-1):
-        out = model.decode(memory, src_mask,
-                           Variable(ys),
-                           Variable(data_help.subsequent_mask(ys.size(1))
-                                    .type_as(src.data)))
-        prob = model.generator(out[:, -1])
-        _, next_word = torch.max(prob, dim=1)
-        next_word = next_word.data[0]
-        ys = torch.cat([ys,
-                        torch.ones(1, 1).type_as(src.data).fill_(next_word)], dim=1)
-    return ys
+    ae_criterion = get_cuda(LabelSmoothing(size=args.vocab_size, padding_idx=args.id_pad, smoothing=0.1))
+    # dis_criterion = nn.BCELoss(size_average=True)
+
+    for epoch in range(200):
+        print('-' * 94)
+        epoch_start_time = time.time()
+        for it in range(train_data_loader.num_batch):
+            batch_sentences, batch_labels, \
+            tensor_src, tensor_src_mask, tensor_tgt, tensor_tgt_y, \
+            tensor_tgt_mask, batch_ntokens = train_data_loader.next_batch()
+
+            # For debug
+            # print(batch_sentences[0])
+            # print(tensor_src[0])
+            # print(tensor_src_mask[0])
+            # print(tensor_tgt[0])
+            # print(tensor_tgt_y[0])
+            # print(tensor_tgt_mask[0])
+            # print(batch_ntokens)
+
+            # Forward pass
+            latent, out = ae_model.forward(tensor_src, tensor_tgt, tensor_src_mask, tensor_tgt_mask)
+
+            # print(latent.size())  # (batch_size, max_src_seq, d_model) (32, 15, 512)
+            # print(out.size())  # (batch_size, max_tgt_seq, vocab_size) (32, 16, 9339)
+
+            # Loss calculation
+            loss_rec = ae_criterion(out.contiguous().view(-1, out.size(-1)),
+                                    tensor_tgt_y.contiguous().view(-1)) / batch_ntokens.data
+
+            # Classifier
+            # dis_lop = dis_model(latent)
+            # print(dis_lop.size())
+            # print(batch_label_tensor.size())
+            # print(dis_lop[0])
+            # print(batch_label_tensor[0])
+            # input("====+========")
+            loss_dis = 0.0  # dis_criterion(dis_lop, batch_label_tensor)
 
 
-# Small example model.
-def synthetic_data():
-    print("synthetic_data task")
-    # Train the simple copy task.
-    V = 11
-    criterion = model_help.LabelSmoothing(size=V, padding_idx=0, smoothing=0.1)
-    criterion.cuda()
-    model = model_help.make_model(V, V, N=2)
-    model.cuda()
-    model_opt = model_help.NoamOpt(model.src_embed[0].d_model, 1, 400,
-                                   torch.optim.Adam(model.parameters(), lr=0, betas=(0.9, 0.98), eps=1e-9))
-    for epoch in range(10):
-        model.train()
-        run_epoch(data_help.data_gen(V, 30, 20), model,
-                  model_help.SimpleLossCompute(model.generator, criterion, args.device, model_opt))
-        model.eval()
-        eval_loss = run_epoch(data_help.data_gen(V, 30, 5), model,
-                              model_help.SimpleLossCompute(model.generator, criterion, args.device, None))
-        print("eval loss: %f" % eval_loss.numpy())
+            if it % 200 == 0:
+                add_log(
+                    '| epoch {:3d} | {:5d}/{:5d} batches | rec loss {:5.4f} | dis loss {:5.4f} |'.format(
+                        epoch, it, train_data_loader.num_batch, loss_rec, loss_dis))
+                # Save model
+                # torch.save(ae_model.state_dict(), args.current_save_path + 'ae_model_params.pkl')
+                # torch.save(dis_model.state_dict(), args.current_save_path + 'dis_model_params.pkl')
 
-    model.eval()
-    src = Variable(torch.LongTensor([[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]]))
-    src_mask = Variable(torch.ones(1, 1, 10))
-    print(greedy_decode(model, src.to(args.device), src_mask.to(args.device), max_len=10, start_symbol=1))
+                print(id2text_sentence(tensor_tgt_y[0], args.id_to_word))
+                generator_text = ae_model.greedy_decode(latent, tensor_src_mask,
+                                                        max_len=args.max_sequence_length,
+                                                        start_id=args.id_bos)
+                print(id2text_sentence(generator_text[0], args.id_to_word))
 
+                # input("====eval===")
 
-# A Real World Example
-def german_english_translation():
-    print("german_english_translation task")
-    SRC, TGT, train, val, test = data_help.data_load()
+            # backward + optimization
+            ae_optimizer.optimizer.zero_grad()
+            dis_optimizer.zero_grad()
+            loss_all = loss_rec  # + loss_dis
+            loss_all.backward()
+            ae_optimizer.step()
+            dis_optimizer.step()
 
-    # GPUs to use
-    devices = [0, 1]
-    pad_idx = TGT.vocab.stoi["<blank>"]
-    print("Size:", len(SRC.vocab), len(TGT.vocab))
-    model = model_help.make_model(len(SRC.vocab), len(TGT.vocab), N=6).to(args.device)
-    print("+===============+")
-    criterion = model_help.LabelSmoothing(size=len(TGT.vocab), padding_idx=pad_idx, smoothing=0.1).to(args.device)
-    BATCH_SIZE = 12000
-    train_iter = data_help.MyIterator(train, batch_size=BATCH_SIZE, device=devices[0],
-                            repeat=False, sort_key=lambda x: (len(x.src), len(x.trg)),
-                            batch_size_fn=batch_size_fn, train=True)
-    valid_iter = data_help.MyIterator(val, batch_size=BATCH_SIZE, device=devices[0],
-                            repeat=False, sort_key=lambda x: (len(x.src), len(x.trg)),
-                            batch_size_fn=batch_size_fn, train=False)
-    model_par = nn.DataParallel(model, device_ids=devices)
-
-    model_opt = model_help.NoamOpt(model.src_embed[0].d_model, 1, 2000,
-                        torch.optim.Adam(model.parameters(), lr=0, betas=(0.9, 0.98), eps=1e-9))
-    for epoch in range(10):
-        model_par.train()
-        run_epoch((data_help.rebatch(pad_idx, b) for b in train_iter),
-                  model_par,
-                  model_help.MultiGPULossCompute(model.generator, criterion,
-                                      devices=devices, opt=model_opt))
-        model_par.eval()
-        loss = run_epoch((data_help.rebatch(pad_idx, b) for b in valid_iter),
-                         model_par,
-                         model_help.MultiGPULossCompute(model.generator, criterion,
-                                             devices=devices, opt=None))
-        print(loss)
-
-    """Once trained we can decode the model to produce a set of translations. 
-    Here we simply translate the first sentence in the validation set. This dataset 
-    is pretty small so the translations with greedy search are reasonably accurate."""
-    for i, batch in enumerate(valid_iter):
-        src = batch.src.transpose(0, 1)[:1]
-        src_mask = (src != SRC.vocab.stoi["<blank>"]).unsqueeze(-2)
-        out = greedy_decode(model, src, src_mask,
-                            max_len=60, start_symbol=TGT.vocab.stoi["<s>"])
-        print("Translation:", end="\t")
-        for i in range(1, out.size(1)):
-            sym = TGT.vocab.itos[out[0, i]]
-            if sym == "</s>": break
-            print(sym, end=" ")
-        print()
-        print("Target:", end="\t")
-        for i in range(1, batch.trg.size(0)):
-            sym = TGT.vocab.itos[batch.trg.data[i, 0]]
-            if sym == "</s>": break
-            print(sym, end=" ")
-        print()
-        break
+        add_log(
+            '| end of epoch {:3d} | time: {:5.2f}s |'.format(
+                epoch, (time.time() - epoch_start_time)))
+        # Save model
+        torch.save(ae_model.state_dict(), args.current_save_path + 'ae_model_params.pkl')
+        torch.save(dis_model.state_dict(), args.current_save_path + 'dis_model_params.pkl')
+    return
 
 
 if __name__ == '__main__':
-    # synthetic_data()
-    german_english_translation()
+    preparation()
+
+    ae_model = get_cuda(make_model(d_vocab=args.vocab_size))
+    dis_model = get_cuda(Classifier(latent_size=args.hidden_size * 2, output_size=args.label_size))
 
 
+    # ae_model = EncoderDecoder(
+    #     vocab_size=args.vocab_size, embedding_size=args.embedding_size, hidden_size=args.hidden_size,
+    #     num_layers=args.num_layers_AE, word_dropout=args.word_dropout, embedding_dropout=args.embedding_dropout,
+    #     sos_idx=args.id_bos, eos_idx=args.id_eos, pad_idx=args.id_pad, unk_idx=args.id_unk,
+    #     max_sequence_length=args.max_sequence_length, latent_size=args.latent_size, rnn_type=args.rnn_type,
+    # ).cuda()
+    #
 
+    if args.if_load_from_checkpoint:
+        # Load models' params from checkpoint
+        ae_model.load_state_dict(torch.load(args.current_save_path + 'ae_model_params.pkl'))
+        dis_model.load_state_dict(torch.load(args.current_save_path + 'dis_model_params.pkl'))
+    else:
+        train_iters(ae_model, dis_model)
+
+
+    # eval_iters(ae_model, dis_model)
+
+    print("Done!")
 
