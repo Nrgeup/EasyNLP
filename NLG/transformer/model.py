@@ -260,7 +260,7 @@ class EncoderDecoder(nn.Module):
         return ys[:, 1:]
 
 
-def make_model(d_vocab, N=2, d_model=256, d_ff=1024, h=4, dropout=0.1):
+def make_model(d_vocab, N, d_model, d_ff=1024, h=4, dropout=0.1):
     """Helper: Construct a model from hyperparameters."""
     c = copy.deepcopy
     attn = MultiHeadedAttention(h, d_model)

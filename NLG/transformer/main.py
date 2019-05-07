@@ -42,10 +42,10 @@ parser.add_argument('--data_path', type=str, default='', help='')
 parser.add_argument('--word_dict_max_num', type=int, default=5, help='')
 parser.add_argument('--batch_size', type=int, default=128, help='')
 parser.add_argument('--max_sequence_length', type=int, default=60)
-parser.add_argument('--num_layers_AE', type=int, default=1)
-parser.add_argument('--embedding_size', type=int, default=300)
-parser.add_argument('--hidden_size', type=int, default=256)
-parser.add_argument('--rnn_type', type=str, default='gru')
+parser.add_argument('--num_layers_AE', type=int, default=2)
+parser.add_argument('--transformer_model_size', type=int, default=256)
+parser.add_argument('--transformer_ff_size', type=int, default=1024)
+
 parser.add_argument('--latent_size', type=int, default=64)
 parser.add_argument('--word_dropout', type=float, default=1.0)
 parser.add_argument('--embedding_dropout', type=float, default=0.5)
@@ -199,17 +199,12 @@ def train_iters(ae_model, dis_model):
 if __name__ == '__main__':
     preparation()
 
-    ae_model = get_cuda(make_model(d_vocab=args.vocab_size))
-    dis_model = get_cuda(Classifier(latent_size=args.hidden_size * 2, output_size=args.label_size))
-
-
-    # ae_model = EncoderDecoder(
-    #     vocab_size=args.vocab_size, embedding_size=args.embedding_size, hidden_size=args.hidden_size,
-    #     num_layers=args.num_layers_AE, word_dropout=args.word_dropout, embedding_dropout=args.embedding_dropout,
-    #     sos_idx=args.id_bos, eos_idx=args.id_eos, pad_idx=args.id_pad, unk_idx=args.id_unk,
-    #     max_sequence_length=args.max_sequence_length, latent_size=args.latent_size, rnn_type=args.rnn_type,
-    # ).cuda()
-    #
+    ae_model = get_cuda(make_model(d_vocab=args.vocab_size,
+                                   N=args.num_layers_AE,
+                                   d_model=args.transformer_model_size,
+                                   d_ff=args.transformer_ff_size,
+    ))
+    dis_model = get_cuda(Classifier(latent_size=args.latent_size, output_size=args.label_size))
 
     if args.if_load_from_checkpoint:
         # Load models' params from checkpoint
@@ -217,7 +212,6 @@ if __name__ == '__main__':
         dis_model.load_state_dict(torch.load(args.current_save_path + 'dis_model_params.pkl'))
     else:
         train_iters(ae_model, dis_model)
-
 
     # eval_iters(ae_model, dis_model)
 
