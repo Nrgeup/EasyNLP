@@ -64,7 +64,8 @@ Pytorch code templates for some basic natural language processing tasks.
  - Processing scripts
       - [x] [Sentence similarity](./Tools/similarity.py)
       - [x] [English text pre-processing](./Tools/text_process.py)
-      - [x] [Google translate script](././Tools/google_translate.py)
+      - [x] [Google translate script](./Tools/google_translate.py)
+	  - [x] [Crawl tweets script](./Tools/crawl-tweets)
  - Implementation skills
       - [x] [word_net](./Tools/wordnet/)
       - [x] [Label Smoothing](./Tools/label_smoothing.py)
