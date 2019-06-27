@@ -44,6 +44,8 @@ Pytorch code templates for some basic natural language processing tasks.
 
 - Sentiment Analysis
     - [x] [Basic LSTM Classifier](./NLU/SA/LSTM_Classifier.py)
+    - [] [Bert-pretrain]()
+    - [] [Bert-finetune]()
     
 ## Information Retrieval
 - Relation Extraction
@@ -58,6 +60,7 @@ Pytorch code templates for some basic natural language processing tasks.
  - Metrics
       - [x] [BLEU](./Tools/bleu.py)
       - [x] [Self-BLEU](./Tools/self-bleu.py)
+	  - [x] [Multi-BLEU](./Tools/multi-bleu/multi-bleu.py)
  - Processing scripts
       - [x] [Sentence similarity](./Tools/similarity.py)
       - [x] [English text pre-processing](./Tools/text_process.py)
