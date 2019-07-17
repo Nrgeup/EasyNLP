@@ -1,4 +1,4 @@
-# NLP_Examples
+# NLP Examples
 Pytorch code templates for some basic natural language processing tasks.
 
     Experience is the mother of wisdom!
@@ -9,9 +9,10 @@ Pytorch code templates for some basic natural language processing tasks.
 - [Collected Public Datasets](./Data)
 - [NLP Conference Deadlines](https://aideadlin.es/?sub=NLP,ML,CV,DM)
 - [Best Paper Awards in CS](https://jeffhuang.com/best_paper_awards.html)
-
 - [Basic_Framework](./Basic_framework)
+
 ---
+
 ## Theoretical Research
 
 - Reinforcement Learning
@@ -44,8 +45,8 @@ Pytorch code templates for some basic natural language processing tasks.
 
 - Sentiment Analysis
     - [x] [Basic LSTM Classifier](./NLU/SA/LSTM_Classifier.py)
-    - [] [Bert-pretrain]()
-    - [] [Bert-finetune]()
+    - [ ] [Bert-pretrain]()
+    - [ ] [Bert-finetune]()
     
 ## Information Retrieval
 - Relation Extraction
