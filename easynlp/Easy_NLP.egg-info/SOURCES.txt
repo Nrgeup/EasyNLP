@@ -1,0 +1,8 @@
+README.md
+setup.py
+Easy_NLP.egg-info/PKG-INFO
+Easy_NLP.egg-info/SOURCES.txt
+Easy_NLP.egg-info/dependency_links.txt
+Easy_NLP.egg-info/not-zip-safe
+Easy_NLP.egg-info/top_level.txt
+easynlp/__init__.py

@@ -1,0 +1,16 @@
+Metadata-Version: 1.1
+Name: easynlp
+Version: 0.0.1
+Summary: An easy-to-use toolkit for natural language processing tasks.
+Home-page: https://github.com/Nrgeup/EasyNLP
+Author: Ke Wang
+Author-email: wangke17@pku.edu.cn
+License: UNKNOWN
+Description: # EasyNLP
+        
+        This is a simple example package. To be done!
+        
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent

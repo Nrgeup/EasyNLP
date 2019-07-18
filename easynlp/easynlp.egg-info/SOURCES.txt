@@ -1,0 +1,8 @@
+README.md
+setup.py
+easynlp/__init__.py
+easynlp.egg-info/PKG-INFO
+easynlp.egg-info/SOURCES.txt
+easynlp.egg-info/dependency_links.txt
+easynlp.egg-info/not-zip-safe
+easynlp.egg-info/top_level.txt
