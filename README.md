@@ -38,8 +38,6 @@ import easynlp
 
 ```
 
-
-
 ## Documentation
 
 
@@ -53,6 +51,5 @@ import easynlp
 ## License
 
 [![License](http://img.shields.io/:license-mit-blue.svg)](http://badges.mit-license.org)
-
 
 
