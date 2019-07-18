@@ -22,7 +22,7 @@
 
 - [Installation](#installation)
 - [Examples](#examples)
-- [Documentation](#Documentation)
+- [Documentation](https://easynlp.readthedocs.io/en/latest/)
 - [FAQ](#faq)
 - [License](#license)
 
@@ -38,8 +38,7 @@ import easynlp
 
 ```
 
-## Documentation
-
+## [Documentation](https://easynlp.readthedocs.io/en/latest/)
 
 ## FAQ
 - **What is the purpose of building this package?** -
