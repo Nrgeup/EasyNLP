@@ -1,6 +1,4 @@
-<h1 align="center"><img src="./documents/files/logo.png" height="110" width="180" /></h1>
-
-
+<h1 align="center"><img src="./documents/files/logo.png" height="130" /></h1>
 
 <p align="center">
   <a href="https://github.com/nrgeup">
@@ -15,19 +13,46 @@
   <a href="https://github.com/nrgeup/EasyNLP/blob/master/LICENSE">
     <img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-yellow.svg" target="_blank" />
   </a>
+  <img src="http://img.shields.io/travis/badges/badgerbadgerbadger.svg" />
 </p>
 
 > An easy-to-use toolkit for natural language processing tasks.
 
-## Install
+## Table of Contents
 
+- [Installation](#installation)
+- [Examples](#examples)
+- [Documentation](#Documentation)
+- [FAQ](#faq)
+- [License](#license)
+
+## Installation
 ```bash
 pip install easynlp --user
 ```
 
-## Demo
+## Examples
+
+```python
+import easynlp
+
+```
 
 
+
+## Documentation
+
+
+## FAQ
+- **What is the purpose of building this package?** -
+    - For me, just for fun and learning in practice.
+    
+- **Why is the function of this package so imperfect?** -
+    - I am working hard to expand more functions.
+
+## License
+
+[![License](http://img.shields.io/:license-mit-blue.svg)](http://badges.mit-license.org)
 
 
 
