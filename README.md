@@ -41,10 +41,10 @@ import easynlp
 ## [Documentation](https://easynlp.readthedocs.io/en/latest/)
 
 ## FAQ
-- **What is the purpose of building this package?** -
+- **What is the purpose of building this package?**
     - For me, just for fun and learning in practice.
     
-- **Why is the function of this package so imperfect?** -
+- **Why is the function of this package so imperfect?**
     - I am working hard to expand more functions.
 
 ## License
