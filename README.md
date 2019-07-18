@@ -1,5 +1,6 @@
-<h1 align="center">EasyNLP<img src="./documents/files/logo.svg"></h1>
+<h1 align="center">EasyNLP</h1>
 
+<img src="./documents/files/logo.svg" />
 
 <p align="center">
   <a href="https://github.com/nrgeup">
