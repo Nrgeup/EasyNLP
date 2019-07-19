@@ -12,6 +12,7 @@ Installation
         pip install easynlp --user
 
 
+
 Example
 ==========================================
 
@@ -20,6 +21,7 @@ Example
         import easynlp
         easynlp.start()
         # Print: "Import successful!"
+
 
 
 
