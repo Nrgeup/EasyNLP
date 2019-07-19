@@ -47,7 +47,7 @@ easynlp.start()
     - For users, I hope to help them build the entire code framework to solve NLP tasks more easily.
     
 - **Why is the function of this package so imperfect?**
-    - I am working hard to expand more functions.
+    - `I am working hard to expand more functions.`
 
 ## License
 
