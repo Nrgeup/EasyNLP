@@ -3,30 +3,44 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
+
+
 Welcome to EasyNLP's documentation!
 ===================================
+.. _a link: http://example.com/
+
+.. note::
+   Here is the documentation of EasyNLP, an easy-to-use toolkit for natural language processing tasks.
+   Please provide feedback to `Nrgeup <mailto:wangke17@pku.edu.cn>`_. You can view the source on `GitHub <https://github.com/Nrgeup/EasyNLP>`_ .
+
 
 .. toctree::
-   :maxdepth: 2
+   :numbered:
+   :maxdepth: 1
+   :caption: Beginning:
+
+   Installation <beginning/01_installation>
+
+
+.. toctree::
+   :numbered:
+   :maxdepth: 1
    :caption: Contents:
 
+   Useful resources <contents/01_useful_resources.rst>
+   Basic_Framework <contents/02_basic_framework.rst>
+
+.. toctree::
+   :numbered:
+   :maxdepth: 1
+   :caption: API:
+
+   API <api/index>
 
 
-Indices and tables
-==================
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
 
-* This is a bulleted list.
-* It has two items, the second
-  item uses two lines.
 
-1. This is a numbered list.
-2. It has two items too.
 
-#. This is a numbered list.
-#. It has two items too.
 
 
