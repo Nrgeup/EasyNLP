@@ -7,12 +7,10 @@
 
 Welcome to EasyNLP's documentation!
 ===================================
-.. _a link: http://example.com/
 
 .. note::
    Here is the documentation of EasyNLP, an easy-to-use toolkit for natural language processing tasks.
    Please provide feedback to `Nrgeup <mailto:wangke17@pku.edu.cn>`_. You can view the source on `GitHub <https://github.com/Nrgeup/EasyNLP>`_ .
-
 
 .. toctree::
    :numbered:
@@ -20,7 +18,6 @@ Welcome to EasyNLP's documentation!
    :caption: Beginning:
 
    Installation <beginning/01_installation.rst>
-
 
 .. toctree::
    :numbered:
