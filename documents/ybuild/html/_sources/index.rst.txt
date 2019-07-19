@@ -19,7 +19,7 @@ Welcome to EasyNLP's documentation!
    :maxdepth: 1
    :caption: Beginning:
 
-   Installation <beginning/01_installation>
+   Installation <beginning/01_installation.rst>
 
 
 .. toctree::
@@ -35,7 +35,7 @@ Welcome to EasyNLP's documentation!
    :maxdepth: 1
    :caption: API:
 
-   API <api/index>
+   API <api/index.rst>
 
 
 
