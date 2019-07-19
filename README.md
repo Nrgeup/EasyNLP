@@ -13,7 +13,10 @@
   <a href="https://github.com/nrgeup/EasyNLP/blob/master/LICENSE">
     <img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-yellow.svg" target="_blank" />
   </a>
-  <img src="http://img.shields.io/travis/badges/badgerbadgerbadger.svg" />
+   <a href='https://easynlp.readthedocs.io/en/latest/?badge=latest'>
+    <img src='https://readthedocs.org/projects/easynlp/badge/?version=latest' alt='Documentation Status' />
+   </a>
+
 </p>
 
 > An easy-to-use toolkit for natural language processing tasks.
