@@ -12,12 +12,7 @@ Welcome to EasyNLP's documentation!
    Here is the documentation of EasyNLP, an easy-to-use toolkit for natural language processing tasks.
    Please provide feedback to `Nrgeup <mailto:wangke17@pku.edu.cn>`_. You can view the source on `GitHub <https://github.com/Nrgeup/EasyNLP>`_ .
 
-.. toctree::
-   :numbered:
-   :maxdepth: 1
-   :caption: Beginning:
 
-   Installation <beginning/01_installation.rst>
 
 .. toctree::
    :numbered:
@@ -34,6 +29,13 @@ Welcome to EasyNLP's documentation!
 
    API <api/index.rst>
 
+
+.. toctree::
+   :numbered:
+   :maxdepth: 1
+   :caption: Beginning:
+
+   Installation <beginning/01_installation.rst>
 
 
 
