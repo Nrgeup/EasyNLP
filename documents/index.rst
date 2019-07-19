@@ -13,6 +13,13 @@ Welcome to EasyNLP's documentation!
    Please provide feedback to `Nrgeup <mailto:wangke17@pku.edu.cn>`_. You can view the source on `GitHub <https://github.com/Nrgeup/EasyNLP>`_ .
 
 
+.. toctree::
+   :numbered:
+   :maxdepth: 1
+   :caption: Installation:
+
+   Installation <installation.rst>
+
 
 .. toctree::
    :numbered:
@@ -20,7 +27,7 @@ Welcome to EasyNLP's documentation!
    :caption: Contents:
 
    Useful resources <contents/01_useful_resources.rst>
-   Basic_Framework <contents/02_basic_framework.rst>
+   Basic framework <contents/02_basic_framework.rst>
 
 .. toctree::
    :numbered:
@@ -30,12 +37,7 @@ Welcome to EasyNLP's documentation!
    API <api/index.rst>
 
 
-.. toctree::
-   :numbered:
-   :maxdepth: 1
-   :caption: Beginning:
 
-   Installation <beginning/01_installation.rst>
 
 
 
