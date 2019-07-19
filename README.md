@@ -35,7 +35,8 @@ pip install easynlp --user
 
 ```python
 import easynlp
-
+easynlp.start()
+# Print: "Import successful!"
 ```
 
 ## [Documentation](https://easynlp.readthedocs.io/en/latest/)
@@ -43,6 +44,7 @@ import easynlp
 ## FAQ
 - **What is the purpose of building this package?**
     - For me, just for fun and learning in practice.
+    - For users, I hope to help them build the entire code framework to solve NLP tasks more easily.
     
 - **Why is the function of this package so imperfect?**
     - I am working hard to expand more functions.
