@@ -3,6 +3,7 @@ import logging
 from logging import handlers
 import time
 import torch
+from torch.utils.data import DataLoader
 
 
 def get_cuda(tensor):
